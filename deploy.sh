@@ -3,13 +3,13 @@
 echo "Starting infrastructure deployment..."
  
 REGION="eu-north-1"
-INSTANCE_TYPE="t2.micro"
+INSTANCE_TYPE="t3.micro"
  
 # Linux AMI
-LINUX_AMI="ami-0c1ac8a41498c1a9c"
+LINUX_AMI="ami-037688ecd92e8611e"
  
 # Windows AMI
-WINDOWS_AMI="ami-0123456789abcdef0"
+WINDOWS_AMI="ami-05685a907dd80d96c"
  
  
 echo "Launching Linux Instances..."
