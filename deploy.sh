@@ -6,10 +6,10 @@ REGION="eu-north-1"
 INSTANCE_TYPE="t2.micro"
  
 # Linux AMI
-LINUX_AMI="ami-0f5ee92e2d63afc18"
+LINUX_AMI="ami-0c1ac8a41498c1a9c"
  
 # Windows AMI
-WINDOWS_AMI="ami-03cfb5e1fb4fac428"
+WINDOWS_AMI="ami-0123456789abcdef0"
  
  
 echo "Launching Linux Instances..."
