@@ -2,17 +2,59 @@
  
 echo "Starting infrastructure deployment..."
  
-# Create Linux Instances
+REGION="ap-south-1"
+INSTANCE_TYPE="t2.micro"
+ 
+# Linux AMI
+LINUX_AMI="ami-0f5ee92e2d63afc18"
+ 
+# Windows AMI
+WINDOWS_AMI="ami-03cfb5e1fb4fac428"
+ 
+ 
 echo "Launching Linux Instances..."
  
-aws ec2 run-instances ... (linux1 script)
-aws ec2 run-instances ... (linux2 script)
-aws ec2 run-instances ... (linux3 script)
+aws ec2 run-instances \
+--image-id $LINUX_AMI \
+--count 1 \
+--instance-type $INSTANCE_TYPE \
+--user-data file://linux/linux1.sh \
+--region $REGION
  
-# Create Windows Instances
+ 
+aws ec2 run-instances \
+--image-id $LINUX_AMI \
+--count 1 \
+--instance-type $INSTANCE_TYPE \
+--user-data file://linux/linux2.sh \
+--region $REGION
+ 
+ 
+aws ec2 run-instances \
+--image-id $LINUX_AMI \
+--count 1 \
+--instance-type $INSTANCE_TYPE \
+--user-data file://linux/linux3.sh \
+--region $REGION
+ 
+ 
 echo "Launching Windows Instances..."
  
-aws ec2 run-instances ... (windows1 script)
-aws ec2 run-instances ... (windows2 script)
+aws ec2 run-instances \
+--image-id $WINDOWS_AMI \
+--count 1 \
+--instance-type $INSTANCE_TYPE \
+--user-data file://windows/windows1.ps1 \
+--region $REGION
  
-echo "Deployment completed
+ 
+aws ec2 run-instances \
+--image-id $WINDOWS_AMI \
+--count 1 \
+--instance-type $INSTANCE_TYPE \
+--user-data file://windows/windows2.ps1 \
+--region $REGION
+ 
+ 
+echo "Deployment completed"
+ 
