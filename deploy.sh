@@ -2,7 +2,7 @@
  
 echo "Starting infrastructure deployment..."
  
-REGION="ap-south-1"
+REGION="eu-north-1"
 INSTANCE_TYPE="t2.micro"
  
 # Linux AMI
