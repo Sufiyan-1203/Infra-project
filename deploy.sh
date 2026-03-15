@@ -1,40 +1,51 @@
+
 #!/bin/bash
- 
-echo "Starting infrastructure deployment..."
  
 REGION="eu-north-1"
 INSTANCE_TYPE="t3.micro"
  
-# Linux AMI
-LINUX_AMI="ami-037688ecd92e8611e"
+LINUX_AMI=$(aws ssm get-parameters \
+--names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 \
+--query "Parameters[0].Value" \
+--output text \
+--region $REGION)
  
-# Windows AMI
-WINDOWS_AMI="ami-05685a907dd80d96c"
+WINDOWS_AMI=$(aws ec2 describe-images \
+--owners amazon \
+--filters "Name=name,Values=Windows_Server-2019-English-Full-Base*" \
+--query "Images[0].ImageId" \
+--region $REGION \
+--output text)
  
+echo "Starting infrastructure deployment..."
  
 echo "Launching Linux Instances..."
  
 aws ec2 run-instances \
 --image-id $LINUX_AMI \
---count 1 \
 --instance-type $INSTANCE_TYPE \
+--count 1 \
 --user-data file://linux/linux1.sh \
+--query 'Instances[0].InstanceID' \
+--output text \
 --region $REGION
- 
  
 aws ec2 run-instances \
 --image-id $LINUX_AMI \
---count 1 \
 --instance-type $INSTANCE_TYPE \
+--count 1 \
 --user-data file://linux/linux2.sh \
+--query 'Instances[0].InstanceID' \
+--output text \
 --region $REGION
- 
  
 aws ec2 run-instances \
 --image-id $LINUX_AMI \
---count 1 \
 --instance-type $INSTANCE_TYPE \
+--count 1 \
 --user-data file://linux/linux3.sh \
+--query 'Instances[0].InstanceID' \
+--output text \
 --region $REGION
  
  
@@ -42,19 +53,22 @@ echo "Launching Windows Instances..."
  
 aws ec2 run-instances \
 --image-id $WINDOWS_AMI \
---count 1 \
 --instance-type $INSTANCE_TYPE \
+--count 1 \
+--key-name aws-key \
 --user-data file://windows/windows1.ps1 \
+--query 'Instances[0].InstanceID' \
+--output text \
 --region $REGION
- 
  
 aws ec2 run-instances \
 --image-id $WINDOWS_AMI \
---count 1 \
 --instance-type $INSTANCE_TYPE \
+--count 1 \
+--key-name aws-key \
 --user-data file://windows/windows2.ps1 \
+--query 'Instances[0].InstanceID' \
+--output text \
 --region $REGION
  
- 
 echo "Deployment completed"
- 
