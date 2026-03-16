@@ -26,6 +26,7 @@ aws ec2 run-instances \
 --instance-type $INSTANCE_TYPE \
 --count 1 \
 --user-data file://linux/linux1.sh \
+--tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Directory-Server}]' \
 --query 'Instances[0].InstanceID' \
 --output text \
 --region $REGION
@@ -36,6 +37,7 @@ aws ec2 run-instances \
 --count 1 \
 --user-data file://linux/linux2.sh \
 --query 'Instances[0].InstanceID' \
+--tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Database-Server}]' \
 --output text \
 --region $REGION
  
@@ -45,6 +47,7 @@ aws ec2 run-instances \
 --count 1 \
 --user-data file://linux/linux3.sh \
 --query 'Instances[0].InstanceID' \
+--tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Python-Server}]' \
 --output text \
 --region $REGION
  
@@ -57,6 +60,7 @@ aws ec2 run-instances \
 --count 1 \
 --key-name aws-key \
 --user-data file://windows/windows1.ps1 \
+--tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=windows-folder-Server}]' \
 --query 'Instances[0].InstanceID' \
 --output text \
 --region $REGION
@@ -67,6 +71,7 @@ aws ec2 run-instances \
 --count 1 \
 --key-name aws-key \
 --user-data file://windows/windows2.ps1 \
+--tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=windows-web-Server}]' \
 --query 'Instances[0].InstanceID' \
 --output text \
 --region $REGION

@@ -1,23 +1,18 @@
 #!/bin/bash
  
-echo "Installing MySQL..."
+sudo dnf install mariadb105-server -y
  
-sudo yum update -y
-sudo yum install mysql-server -y
- 
-sudo systemctl start mysqld
-sudo systemctl enable mysqld
- 
-echo "Creating database and table..."
+sudo systemctl start mariadb
+sudo systemctl enable mariadb
  
 mysql -u root <<EOF
 CREATE DATABASE projectdb;
 USE projectdb;
-CREATE TABLE users (
+ 
+CREATE TABLE users(
 id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(50)
 );
 EOF
  
-echo "MySQL setup completed"
- 
+echo "Database created successfully" > /home/ec2-user/linux2_output.txt
