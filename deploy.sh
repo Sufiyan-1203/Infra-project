@@ -37,7 +37,7 @@ aws ec2 run-instances \
 --count 1 \
 --user-data file://linux/linux2.sh \
 --query 'Instances[0].InstanceID' \
---tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Database-Server}]' \
+--tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Java-Server}]' \
 --output text \
 --region $REGION
  
